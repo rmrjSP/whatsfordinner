@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
-
+const resturantController = require('../controllers/resturantController');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', resturantController.viewAll);
+
+router.get('/edit/:id', resturantController.renderEditForm);
+router.post('/edit/:id', resturantController.updateRestaurant);
 
 module.exports = router;
