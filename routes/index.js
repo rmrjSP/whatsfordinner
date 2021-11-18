@@ -6,5 +6,6 @@ router.get('/', resturantController.viewAll);
 
 router.get('/edit/:id', resturantController.renderEditForm);
 router.post('/edit/:id', resturantController.updateRestaurant);
-
+router.get('/delete/:id', resturantController.deleteRestaurant);
+router.get('/add', resturantController.renderAddForm);
 module.exports = router;

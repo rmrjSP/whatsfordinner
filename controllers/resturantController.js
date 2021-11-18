@@ -8,7 +8,7 @@ module.exports.viewAll = async function(req, res, next) {
 
 module.exports.renderEditForm = async function(req,res,next) {
     const restaurant = await Restaurant.findByPk(
-        res.params.id
+        req.params.id
     );
     res.render('edit', {restaurant, categories});
 }
@@ -31,3 +31,38 @@ module.exports.updateRestaurant =  async function(req,res) {
     );
     res.redirect('/');
 }
+module.exports.deleteRestaurant = async function(req,res){
+    await Restaurant.destroy(
+        {
+            where:
+                {
+                    id: req.params.id
+                }
+        }
+    );
+    res.redirect('/');
+}
+module.exports.renderAddForm = function(req,res){
+    const restaurant = {
+        name: "",
+        description: "",
+        rating: 1,
+        image: "",
+        categorey: categories[0],
+    };
+    res.render('add', {restaurant, categories});
+}
+module.exports.addResturant = async function(req,res){
+    await Restaurant.create(
+        {
+            name: req.body.name,
+            categorey: req.body.categorey,
+            rating: req.body.rating,
+            image: req.body.image,
+            description: req.body.description
+
+        }
+    );
+    res.redirect('/');
+}
+
